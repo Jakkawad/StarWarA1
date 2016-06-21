@@ -9,14 +9,15 @@
 import UIKit
 import Alamofire
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
 
     @IBOutlet weak var tableView:UITableView!
     
     var species:Array<StarWarsSpecies>?
     var speciesWrapper:SpeciesWrapper?
     var isLoadingSpecies = false
-    //var imageCache:Dictionary<String, ImageSearchResult?>?
+    
+    var speciesSearchResults:Array<StarWarsSpecies>?
     
     func loadFirstSpecies() {
         isLoadingSpecies = true
@@ -68,14 +69,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 1
+        /*
         if self.species == nil {
             return 0
         }
         return self.species!.count
+        */
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            return self.speciesSearchResults?.count ?? 0
+        } else {
+            return self.species?.count ?? 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell0 = tableView.dequeueReusableCellWithIdentifier("tableCell0")
+        
         if self.species != nil && self.species!.count >= indexPath.row
         {
             let species = self.species![indexPath.row]
@@ -93,14 +102,74 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
         }
+ 
+        /*
+        var arrayOfSpecies:Array<StarWarsSpecies>?
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            arrayOfSpecies = self.speciesSearchResults
+        } else {
+            arrayOfSpecies = self.species
+        }
         
+        if arrayOfSpecies != nil && arrayOfSpecies!.count >= indexPath.row {
+            let species = arrayOfSpecies![indexPath.row]
+            cell0?.textLabel?.text = species.name
+            cell0?.detailTextLabel?.text = " "
+            cell0?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+            
+            if let name = species.name {
+                // check the cache first
+                
+            }
+        }
+        */
         return cell0!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
+
+    // MARK: Search
     
+    func filterContentForSearchText(searchText: String, scope: Int) {
+        // Filter the array using the filter method
+        if self.species == nil {
+            self.speciesSearchResults = nil
+            return
+        }
+        self.speciesSearchResults = self.species!.filter({( aSpecies: StarWarsSpecies) -> Bool in
+        // pick the field to search
+            var fieldTosearch: String?
+            switch (scope) {
+            case (0):
+                fieldTosearch = aSpecies.name
+            case (1):
+                fieldTosearch = aSpecies.language
+            case (2):
+                fieldTosearch = aSpecies.classification
+            default:
+                fieldTosearch = nil
+            }
+            if fieldTosearch == nil {
+                self.speciesSearchResults = nil
+                return false
+            }
+            return fieldTosearch!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+        })
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        let selectedIndex = controller.searchBar.selectedScopeButtonIndex
+        self.filterContentForSearchText(searchString!, scope: selectedIndex)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        let searchString = controller.searchBar.text
+        self.filterContentForSearchText(searchString!, scope: searchOption)
+        return true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

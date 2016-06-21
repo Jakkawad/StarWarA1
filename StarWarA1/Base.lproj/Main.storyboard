@@ -21,9 +21,17 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mm2-96-qzl">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="peG-wt-WHf">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="BYZ-38-t0r" id="0Rh-vY-CPm"/>
+                                    </connections>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell0" textLabel="V8L-vE-yKO" detailTextLabel="Tb9-Yj-CPd" style="IBUITableViewCellStyleValue1" id="Gqc-QE-h5X">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gqc-QE-h5X" id="nYx-O2-Sf8">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -63,10 +71,20 @@
                     </view>
                     <navigationItem key="navigationItem" id="yiz-pN-Xys"/>
                     <connections>
+                        <outlet property="searchDisplayController" destination="T6A-N3-fAc" id="DMv-ww-feh"/>
                         <outlet property="tableView" destination="mm2-96-qzl" id="CCr-hL-aLZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="T6A-N3-fAc">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="3hH-mD-gfh"/>
+                        <outlet property="searchBar" destination="peG-wt-WHf" id="SsY-CX-gAJ"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="5xj-3I-YTG"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="u5m-pm-7CY"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="ij7-3J-481"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1377" y="439"/>
         </scene>
