@@ -158,8 +158,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell0!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+        } else {
+            cell.backgroundColor = UIColor.whiteColor()
+        }
     }
 
     // MARK: Search

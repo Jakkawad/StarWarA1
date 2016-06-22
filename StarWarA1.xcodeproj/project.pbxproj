@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84546E141D1A8E0C006C34C5 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84546E131D1A8E0C006C34C5 /* DetailViewController.swift */; };
 		848D8E6D1D18FB7E00A371F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D8E6C1D18FB7E00A371F2 /* AppDelegate.swift */; };
 		848D8E6F1D18FB7E00A371F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D8E6E1D18FB7E00A371F2 /* ViewController.swift */; };
 		848D8E721D18FB7E00A371F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848D8E701D18FB7E00A371F2 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		0B926F0E4489BEFAB5BD96F4 /* Pods-StarWarA1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarWarA1.release.xcconfig"; path = "Pods/Target Support Files/Pods-StarWarA1/Pods-StarWarA1.release.xcconfig"; sourceTree = "<group>"; };
+		84546E131D1A8E0C006C34C5 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		848D8E691D18FB7E00A371F2 /* StarWarA1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarA1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848D8E6C1D18FB7E00A371F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		848D8E6E1D18FB7E00A371F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				848D8E751D18FB7E00A371F2 /* LaunchScreen.storyboard */,
 				848D8E781D18FB7E00A371F2 /* Info.plist */,
 				848D8E801D19007D00A371F2 /* StarWarsSpecies.swift */,
+				84546E131D1A8E0C006C34C5 /* DetailViewController.swift */,
 			);
 			path = StarWarA1;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				848D8E811D19007D00A371F2 /* StarWarsSpecies.swift in Sources */,
 				848D8E6F1D18FB7E00A371F2 /* ViewController.swift in Sources */,
 				848D8E6D1D18FB7E00A371F2 /* AppDelegate.swift in Sources */,
+				84546E141D1A8E0C006C34C5 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
