@@ -27,7 +27,7 @@ enum SpeciesFields:String {
     case EyeColors = "eye_colors"
     case AverageLifespan = "average_lifespan"
     case Homeworld = "homewold"
-    case Language = "laguage"
+    case Language = "language"
     case People = "people"
     case Films = "films"
     case Created = "created"
@@ -55,15 +55,16 @@ class StarWarsSpecies {
     var url:String?
     
     
-     required init(json:JSON, id:Int?) {
-     self.idNumber = id
-     self.name = json[SpeciesFields.Name.rawValue].stringValue
-     self.classification = json[SpeciesFields.Classification.rawValue].stringValue
-     self.designation = json[SpeciesFields.Designation.rawValue].stringValue
-     self.averageHeight = json[SpeciesFields.AverageHeight.rawValue].int
+    required init(json:JSON, id:Int?) {
+        self.idNumber = id
+        self.name = json[SpeciesFields.Name.rawValue].stringValue
+        self.classification = json[SpeciesFields.Classification.rawValue].stringValue
+        self.designation = json[SpeciesFields.Designation.rawValue].stringValue
+        self.language = json[SpeciesFields.Language.rawValue].stringValue
+        self.averageHeight = json[SpeciesFields.AverageHeight.rawValue].int
         // TODO: add all the fields!
-     }
-    
+    }
+
     // MARK: Endpoints
     class func endpointForSpecies() -> String {
         return "https://swapi.co/api/species/"

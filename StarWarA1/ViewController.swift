@@ -83,8 +83,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell0 = tableView.dequeueReusableCellWithIdentifier("tableCell0")
-        
+        //let cell0 = tableView.dequeueReusableCellWithIdentifier("tableCell0")
+        var cell0 = self.tableView!.dequeueReusableCellWithIdentifier("tableCell0")
+        /*
         if self.species != nil && self.species!.count >= indexPath.row
         {
             let species = self.species![indexPath.row]
@@ -102,27 +103,58 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
         }
- 
-        /*
+        */
+        
         var arrayOfSpecies:Array<StarWarsSpecies>?
         if tableView == self.searchDisplayController!.searchResultsTableView {
             arrayOfSpecies = self.speciesSearchResults
         } else {
             arrayOfSpecies = self.species
         }
-        
+        if arrayOfSpecies != nil && self.species!.count >= indexPath.row {
+            let species = arrayOfSpecies![indexPath.row]
+            cell0!.textLabel?.text = species.name
+            cell0!.detailTextLabel?.text = species.language
+        }
+        /*
         if arrayOfSpecies != nil && arrayOfSpecies!.count >= indexPath.row {
             let species = arrayOfSpecies![indexPath.row]
             cell0?.textLabel?.text = species.name
             cell0?.detailTextLabel?.text = " "
             cell0?.detailTextLabel?.adjustsFontSizeToFitWidth = true
-            
+            cell0?.imageView?.image = nil
+            /*
             if let name = species.name {
-                // check the cache first
+                if let cachedImageResult = imageCache![name] {
+                    // TODO: custom cell with class assigned for custom view?
+                    cell0?.imageView?.image = cachedImageResult!.image
+                    if let attribution = cachedImageResult?.fullAttribution() {
+                        if attribution.isEmpty == false {
+                            cell0?.detailTextLabel?.text = attribution
+                        }
+                    }
+                }
+            } else {
                 
             }
+            */
         }
         */
+        
+        if tableView != self.searchDisplayController!.searchResultsTableView {
+            // See if we need to load more species
+            let rowsToLoadFromBottom = 5
+            let rowsLoaded = self.species!.count
+            if (!self.isLoadingSpecies && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
+                let totalRows = self.speciesWrapper!.count!
+                let remainingSpeciesToLoad = totalRows - rowsLoaded
+                if (remainingSpeciesToLoad > 0) {
+                    self.loadMoreSpecies()
+                }
+            }
+        }
+        
+    
         return cell0!
     }
     
@@ -132,6 +164,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: Search
     
+    //func filterContentForSearchText(searchText: String) {
     func filterContentForSearchText(searchText: String, scope: Int) {
         // Filter the array using the filter method
         if self.species == nil {
@@ -139,27 +172,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return
         }
         self.speciesSearchResults = self.species!.filter({( aSpecies: StarWarsSpecies) -> Bool in
+        // to start, let's just search by name
+            //return aSpecies.name!.rangeOfString(searchText) != nil
+        //return aSpecies.name!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
         // pick the field to search
-            var fieldTosearch: String?
+        var fieldToSearch: String?
             switch (scope) {
             case (0):
-                fieldTosearch = aSpecies.name
+                fieldToSearch = aSpecies.name
             case (1):
-                fieldTosearch = aSpecies.language
+                fieldToSearch = aSpecies.language
             case (2):
-                fieldTosearch = aSpecies.classification
+                fieldToSearch = aSpecies.classification
             default:
-                fieldTosearch = nil
+                fieldToSearch = nil
             }
-            if fieldTosearch == nil {
+            if fieldToSearch == nil {
                 self.speciesSearchResults = nil
                 return false
             }
-            return fieldTosearch!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+            return fieldToSearch!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+            
         })
     }
     
     func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        //self.filterContentForSearchText(searchString!)
         let selectedIndex = controller.searchBar.selectedScopeButtonIndex
         self.filterContentForSearchText(searchString!, scope: selectedIndex)
         return true
@@ -170,10 +208,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.filterContentForSearchText(searchString!, scope: searchOption)
         return true
     }
+    
+    /*
+    //func filterContentForSearchText(searchText: String) {
+    func filterContentForSearchText(searchText: String, scope: Int) {
+        // Filter the array using the filter method
+        if self.species == nil {
+            self.speciesSearchResults = nil
+            return
+        }
+        self.speciesSearchResults = self.species!.filter({( aSpecies: StarWarsSpecies) -> Bool in
+        // pick the field to search
+            var fieldTosearch: String?
+            
+            switch (scope) {
+            case (0):
+                fieldTosearch = aSpecies.name
+            case (1):
+                fieldTosearch = aSpecies.language
+            case (2):
+                fieldTosearch = aSpecies.classification
+            default:
+                fieldTosearch = nil
+            }
+            
+            //fieldTosearch = aSpecies.name
+            if fieldTosearch == nil {
+                self.speciesSearchResults = nil
+                return false
+            }
+            return fieldTosearch!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+        })
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        //self.filterContentForSearchText(searchString)
+        let selectedIndex = controller.searchBar.selectedScopeButtonIndex
+        self.filterContentForSearchText(searchString!, scope: selectedIndex)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        let searchString = controller.searchBar.text
+        self.filterContentForSearchText(searchString!, scope: searchOption)
+        return true
+    }
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadFirstSpecies()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
