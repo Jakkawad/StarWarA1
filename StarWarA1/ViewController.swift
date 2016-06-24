@@ -165,7 +165,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.backgroundColor = UIColor.whiteColor()
         }
     }
-
+    
+    // MARK: Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let detailVC = segue.destinationViewController as? SpeciesDetailViewController {
+            // gotta check if we're currently searching
+            if self.searchDisplayController!.active {
+                let indexPath = self.searchDisplayController?.searchResultsTableView.indexPathForSelectedRow
+                if indexPath != nil {
+                    detailVC.species = (self.speciesSearchResults?[indexPath!.row])!
+                }
+            } else {
+                let indexPath = self.tableView?.indexPathForSelectedRow
+                if indexPath != nil {
+                    detailVC.species = (self.species?[indexPath!.row])!
+                }
+            }
+        }
+    }
+    
     // MARK: Search
     
     //func filterContentForSearchText(searchText: String) {

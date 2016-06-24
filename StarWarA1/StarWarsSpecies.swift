@@ -18,6 +18,7 @@ class SpeciesWrapper {
 }
 
 enum SpeciesFields:String {
+    // Key in JSON
     case Name = "name"
     case Classification = "classification"
     case Designation = "designation"
@@ -62,6 +63,15 @@ class StarWarsSpecies {
         self.designation = json[SpeciesFields.Designation.rawValue].stringValue
         self.language = json[SpeciesFields.Language.rawValue].stringValue
         self.averageHeight = json[SpeciesFields.AverageHeight.rawValue].int
+        
+        // arrays
+        // Films
+        if let jsonArray = json[SpeciesFields.Films.rawValue].array {
+            self.films = Array<String>()
+            for entry in jsonArray {
+                self.films?.append(entry.stringValue)
+            }
+        }
         // TODO: add all the fields!
     }
 
