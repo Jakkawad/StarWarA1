@@ -18,7 +18,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var isLoadingSpecies = false
     
     var speciesSearchResults:Array<StarWarsSpecies>?
-    
+    /*
+    func createSearchBar() {
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = false
+        searchBar.placeholder = "Enter your search here!"
+        searchBar.delegate = self
+        
+        self.navigationItem.titleView = searchBar
+    }
+    */
     func loadFirstSpecies() {
         isLoadingSpecies = true
         StarWarsSpecies.getSpecies({ (speciesWrapper, error) in
@@ -283,6 +292,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         loadFirstSpecies()
         
+        //createSearchBar()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
