@@ -78,42 +78,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return 1
-        /*
+        
         if self.species == nil {
             return 0
         }
+        print(species?.count)
         return self.species!.count
-        */
+        
+        /*
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.speciesSearchResults?.count ?? 0
         } else {
             return self.species?.count ?? 0
         }
+        */
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cell0 = tableView.dequeueReusableCellWithIdentifier("tableCell0")
         var cell0 = self.tableView!.dequeueReusableCellWithIdentifier("tableCell0")
-        /*
+        
         if self.species != nil && self.species!.count >= indexPath.row
         {
             let species = self.species![indexPath.row]
             cell0?.textLabel?.text = species.name
             cell0?.detailTextLabel?.text = species.classification
-            
+
             // See if we need to load more species
             let rowsToLoadFromBottom = 5
             let rowsLoaded = self.species!.count
+            print(rowsLoaded)
             if (!self.isLoadingSpecies && (indexPath.row >= (rowsLoaded - rowsToLoadFromBottom))) {
                 let totalRows = self.speciesWrapper!.count!
+                print(totalRows)
                 let remainingSpeciesToLoad = totalRows - rowsLoaded
                 if  (remainingSpeciesToLoad > 0) {
                     self.loadMoreSpecies()
                 }
             }
         }
-        */
         
+        /*
         var arrayOfSpecies:Array<StarWarsSpecies>?
         if tableView == self.searchDisplayController!.searchResultsTableView {
             arrayOfSpecies = self.speciesSearchResults
@@ -125,6 +130,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell0!.textLabel?.text = species.name
             cell0!.detailTextLabel?.text = species.language
         }
+        */
         /*
         if arrayOfSpecies != nil && arrayOfSpecies!.count >= indexPath.row {
             let species = arrayOfSpecies![indexPath.row]

@@ -36,6 +36,12 @@ class SpeciesDetailViewController: UIViewController {
             if self.species!.averageHeight != nil {
                 self.lblDescription!.text! += "The \(self.species!.name!) can be identified by their height, typically \(self.species!.averageHeight!)cm."
             }
+            //print(species?.films)
+            let b = species?.films
+            print("B\(b!.count)")
+            for a in (species?.films)! {
+                print(a)
+            }
         }
         /*
         if let name = self.species!.name {
